@@ -48,13 +48,12 @@ void testSortCustomClassListsSuccess() {
         students.insertBack(student);
     }
     students.sort(comparator);
-    for (int i=1; i<=5; i++) {
-        std::cout << students.nodeAt(i)->data.rollNumber << ", " << students.nodeAt(i)->data.name << std::endl;
+    for (int i=0; i<5; i++) {
+        std::cout << students.at(i).rollNumber << ", " << students.at(i).name << std::endl;
     }
     std::vector<std::string> studentNames;
-    for (int i=1; i<=students.length(); i++) {
-        studentNames.push_back(students.nodeAt(i)->data.name);
-        // std::cout << studentNames.back() << std::endl;
+    for (int i=0; i<students.length(); i++) {
+        studentNames.push_back(students.at(i).name);
     }
 
     assertEqual(studentNames, {"B", "C", "D", "E", "F"});
@@ -74,8 +73,8 @@ void testSortCustomClassPointersSuccess() {
     }
     studentPtrs.sort([](Student *a, Student *b) { return a->name > b->name; });
     std::vector<std::string> studentNames;
-    for (int i=1; i<=studentPtrs.length(); i++) {
-        studentNames.push_back(studentPtrs.nodeAt(i)->data->name);
+    for (int i=0; i<studentPtrs.length(); i++) {
+        studentNames.push_back(studentPtrs.at(i)->name);
         // std::cout << studentNames.back() << std::endl;
     }
 
@@ -95,12 +94,12 @@ void testSortCustomClassUsingLambdasSuccess() {
     students.sort([](Student a, Student b) { return a.name > b.name; });
     
     
-    for (int i=1; i<=5; i++) {
-        std::cout << students.nodeAt(i)->data.rollNumber << ", " << students.nodeAt(i)->data.name << std::endl;
+    for (int i=0; i<5; i++) {
+        std::cout << students.at(i).rollNumber << ", " << students.at(i).name << std::endl;
     }
     std::vector<std::string> studentNames;
-    for (int i=1; i<=students.length(); i++) {
-        studentNames.push_back(students.nodeAt(i)->data.name);
+    for (int i=0; i<students.length(); i++) {
+        studentNames.push_back(students.at(i).name);
         // std::cout << studentNames.back() << std::endl;
     }
 

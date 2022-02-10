@@ -27,7 +27,7 @@ public:
     int length();
     std::vector<T> toVector();
     bool isEmpty();
-    ListNode* nodeAt(int position);
+    T at(int position);
 
 private:
 
@@ -44,6 +44,8 @@ private:
     void swapValues(ListNode *first, ListNode *second);
     void checkPositionValidity(int position);
     bool defaultComparator(const ListNode& a, const ListNode& b);
+    ListNode* nodeAt(int position);
+
 };
 
 
@@ -160,6 +162,13 @@ int LinkedList<T>::length() {
     return size;
 }
 
+
+template <typename T>
+T LinkedList<T>::at(int position) {
+    return nodeAt(position + 1)->data;
+}
+
+
 template <typename T>
 LinkedList<T>::ListNode::ListNode(T _data): data(_data), next(nullptr) {}
 
@@ -204,3 +213,4 @@ template <typename T>
 bool defaultComparator(const typename LinkedList<T>::ListNode& a, const typename LinkedList<T>::ListNode& b) {
     return a.data < b.data;
 }
+
