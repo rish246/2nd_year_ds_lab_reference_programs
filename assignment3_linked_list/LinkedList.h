@@ -14,6 +14,7 @@ class LinkedList {
 public:
     typedef bool (*comparator_func_t)(T, T);
     LinkedList();
+    ~LinkedList();
     void insertAt(int position, T element);
     void insertFront(T element);
     void insertBack(T element);
@@ -54,6 +55,12 @@ LinkedList<T>::LinkedList() {
     T DUMMY_VALUE;
     head = new ListNode(DUMMY_VALUE);
     size = 0;
+}
+
+template <typename T>
+LinkedList<T>::~LinkedList() {
+    if (head)
+        delete head;
 }
 
 template <typename T>
