@@ -67,6 +67,12 @@ Polynomial Polynomial::add(Polynomial &other) {
     return result;
 }
 
+Polynomial Polynomial::subtract(Polynomial &other) {
+    // a - b == a + (-b)
+    Polynomial negativeOfOther = other.negate();
+    return add(negativeOfOther);
+}
+
 
 PolynomialTerm Polynomial::at(int index) {
     return expression->at(index);
@@ -108,3 +114,12 @@ void Polynomial::insertRemainingTerms(int startingFrom, Polynomial &result) {
     }
 }
 
+Polynomial Polynomial::negate() {
+    Polynomial negativePoly;
+    for (int i=0; i<length(); i++) {
+        PolynomialTerm curTerm = expression->at(i);
+        curTerm.base *= -1;
+        negativePoly.append(curTerm);
+    }
+    return negativePoly;
+}

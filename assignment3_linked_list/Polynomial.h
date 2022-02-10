@@ -25,12 +25,14 @@ public:
     void sort();
     void print();
     Polynomial add(Polynomial &other);
+    Polynomial subtract(Polynomial &other);
     PolynomialTerm at(int index);
-    void append(PolynomialTerm newTerm);
+    void append(PolynomialTerm newTerm); // can result in unsorted polynomial.. but for this case, it works
     int length();
 
 private:
     LinkedList<PolynomialTerm> *expression;
     NextMove getNextTermToInsert(PolynomialTerm &ownTerm, PolynomialTerm &otherTerm);
     void insertRemainingTerms(int startingFrom, Polynomial &result);
+    Polynomial negate();
 };
