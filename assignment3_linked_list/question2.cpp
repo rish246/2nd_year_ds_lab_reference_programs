@@ -12,11 +12,13 @@ int main() {
     Polynomial poly1(firstPolyTerms);
     poly1.print();
 
-    // 2x3
+    // 2x3 + 4x
     std::vector<PolynomialTerm> secondPolyTerms;
     secondPolyTerms.push_back(PolynomialTerm(2, 3));
     secondPolyTerms.push_back(PolynomialTerm(4, 1));            
     // secondPolyTerms.push_back(PolynomialTerm(2, 0));     
+    Polynomial zero;
+    zero.append(PolynomialTerm(0, 0));
 
     Polynomial poly2(secondPolyTerms);
     poly2.print();
@@ -26,6 +28,9 @@ int main() {
 
     Polynomial sub2Poly = poly1.subtract(poly2);
     sub2Poly.print(); // -2x3 + 3x2 - 2x + 1 // works
+
+    Polynomial prod2Poly = poly1.multiply(poly2);
+    prod2Poly.print();
 }
 
 

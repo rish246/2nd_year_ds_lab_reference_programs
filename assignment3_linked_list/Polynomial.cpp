@@ -1,12 +1,26 @@
 #include "Polynomial.h"
 
 ////////////////////////// POLYNOMIAL TERM //////////////////////////////
-PolynomialTerm::PolynomialTerm() {}
+PolynomialTerm::PolynomialTerm(): base(0), power(1) {}
 
 PolynomialTerm::PolynomialTerm(int _base, int _power): base(_base), power(_power) {}
 
 PolynomialTerm PolynomialTerm::add(PolynomialTerm &other) {
-    return PolynomialTerm(base + other.base, other.power);
+    if (base == 0 || other.base == 0) {
+        PolynomialTerm nonZeroTerm = base == 0 ? other : (*this);
+        return nonZeroTerm;
+    }
+    return PolynomialTerm(base + other.base, other.power); 
+}
+
+PolynomialTerm PolynomialTerm::multiply(PolynomialTerm &other) {
+    // bases get multiplied and powers get added
+    // 3x * 4x => 12x2
+    return PolynomialTerm(base * other.base, other.power + power);
+}
+
+void PolynomialTerm::print() {
+    std::cout << "(" << base << "x^" << power << ") ";
 }
 
 //////////////////////////// UTILITY CLASSES //////////////////////////////
@@ -29,11 +43,15 @@ Polynomial::Polynomial(std::vector<PolynomialTerm> &terms) {
     sort();
 }
 
-Polynomial::~Polynomial() {
-    std::cout << "Deleted expression";
-    if (expression) delete expression;
-    expression = nullptr;
+Polynomial::Polynomial(PolynomialTerm term) {
+    expression = new LinkedList<PolynomialTerm>();
+    expression->insertBack(term);
 }
+
+// Polynomial::~Polynomial() {
+//     if (expression) delete expression;
+//     expression = nullptr;
+// }
 
 void Polynomial::sort() {
     expression->sort([](PolynomialTerm a, PolynomialTerm b) { return a.power < b.power; });        
@@ -71,6 +89,30 @@ Polynomial Polynomial::subtract(Polynomial &other) {
     // a - b == a + (-b)
     Polynomial negativeOfOther = other.negate();
     return add(negativeOfOther);
+}
+
+Polynomial Polynomial::multiply(Polynomial &other) {
+    // good old polynomial multiplication algorithm
+    Polynomial product;
+
+    for (int i=0; i<length(); i++) {
+        PolynomialTerm curTerm = at(i);
+        Polynomial productCurTermWithOther = multiplyPolynomialTermAndPolynomial(curTerm, other);
+        product = product.add(productCurTermWithOther);
+    }
+    return product;
+} 
+
+
+Polynomial Polynomial::multiplyPolynomialTermAndPolynomial(PolynomialTerm &term, Polynomial &polynomial) {
+    Polynomial product;
+
+    for (int i=0; i<polynomial.length(); i++) {
+        PolynomialTerm polyTerm = polynomial.at(i);
+        product.append(polyTerm.multiply(term)); 
+    }
+
+    return product;
 }
 
 
