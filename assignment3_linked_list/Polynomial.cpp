@@ -48,6 +48,7 @@ Polynomial::Polynomial(PolynomialTerm term) {
     expression->insertBack(term);
 }
 
+
 // Polynomial::~Polynomial() {
 //     if (expression) delete expression;
 //     expression = nullptr;
